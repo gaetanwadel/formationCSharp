@@ -52,7 +52,22 @@ namespace Formation
                     break;     
             }
 
-        }    
+        }
+        static void IntegerDivision (int a, int b);
+        {
+
+        int q;
+        int r;
+         if (a / b = q);
+            Console.WriteLine(a + " /  )
+             
+
+
+
+
+
+              
+
 
     }
 } 
