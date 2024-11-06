@@ -19,6 +19,9 @@ namespace Formation
             IntegerDivision(13, 4);
             IntegerDivision(12, 0);
 
+            Pow(2, 3);
+            Pow(5, -6);
+
             Console.ReadKey();
         }
         static void BasicOperation(int a, int b, char operateur)
@@ -89,5 +92,24 @@ namespace Formation
 
             }
         }
-    }        
+        static void Pow(int a, int b)
+        {
+            int resultat;
+
+            if (b < 0)
+            {
+                Console.WriteLine(" Opération Invalide .");
+
+
+            }
+
+            else
+            {
+                resultat = (int)Math.Pow(a, b);
+                Console.WriteLine(a + " ^ " + b + " = " + resultat + " ");
+
+            }
+        }
+    }
+    
 } 
