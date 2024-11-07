@@ -24,7 +24,12 @@ namespace Formation
 
             GoodDay(16);
 
-            PyramidConstruction(5,false);
+            PyramidConstruction(5, false);
+
+            Factorial(10);
+            Console.WriteLine();
+            Console.WriteLine(Factorialr(10));
+
 
 
 
@@ -119,7 +124,7 @@ namespace Formation
         }
         static void GoodDay(int heure)
         {
-     
+
 
             if (00 <= heure && heure < 06)
             {
@@ -135,7 +140,7 @@ namespace Formation
 
             }
 
-            else if ( heure == 12 )
+            else if (heure == 12)
             {
 
                 Console.WriteLine(" Il est " + heure + ' ' + 'H' + ',' + " Bon midi!");
@@ -152,10 +157,10 @@ namespace Formation
             }
 
         }
-        static void PyramidConstruction(int n,bool isSmooth)
+        static void PyramidConstruction(int n, bool isSmooth)
         {
             int nblock = 2 * n + 1;
-            int c = (int)((2*n +1) / 2);
+            int c = (int)((2 * n + 1) / 2);
 
             for (int j = 0; j <= n; j++)
             {
@@ -170,7 +175,7 @@ namespace Formation
                         Console.Write(" ");
                     }
 
-                    else 
+                    else
                     {
 
                         if (isSmooth == true)
@@ -188,20 +193,37 @@ namespace Formation
 
                     }
 
-                }       
+                }
                 Console.Write("\n");
-                    
-            } 
-            
-            
+            }
 
+        }
+        static void Factorial(int n)
+        {
+            int j = 1;
 
+            for (int i = n; i > 1; i--)
+            {
+                j = (j * i);
+
+                
+            }
+            Console.Write(j + " ");
+        }
+        static int Factorialr(int n)
+        {
+            if (n == 1 || n == 0)
+            {
+                return 1;
+            }
+
+            return Factorialr(n - 1) * n;
 
         }
 
 
+    }
+         
 
-    }   
 
-    
 }
