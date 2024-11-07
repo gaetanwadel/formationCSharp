@@ -24,6 +24,11 @@ namespace Formation
 
             GoodDay(16);
 
+            PyramidConstruction(5,false);
+
+
+
+
             Console.ReadKey();
         }
         static void BasicOperation(int a, int b, char operateur)
@@ -147,7 +152,56 @@ namespace Formation
             }
 
         }
-          
-    }
+        static void PyramidConstruction(int n,bool isSmooth)
+        {
+            int nblock = 2 * n + 1;
+            int c = (int)((2*n +1) / 2);
+
+            for (int j = 0; j <= n; j++)
+            {
+
+                int bd = c + j;
+                int bg = c - j;
+                for (int k = 0; k <= bd; k++)
+                {
+                    if (k < bg)
+                    {
+
+                        Console.Write(" ");
+                    }
+
+                    else 
+                    {
+
+                        if (isSmooth == true)
+                        {
+                            Console.Write("+");
+                        }
+                        else if (isSmooth == false && j % 2 != 0)
+                        {
+                            Console.Write("-");
+                        }
+                        else if (isSmooth == false && j % 2 == 0)
+                        {
+                            Console.Write("+");
+                        }
+
+                    }
+
+                }       
+                Console.Write("\n");
+                    
+            } 
+            
+            
+
+
+
+        }
+
+
+
+    }   
+
     
-} 
+}
