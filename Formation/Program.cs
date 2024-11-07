@@ -22,6 +22,8 @@ namespace Formation
             Pow(2, 3);
             Pow(5, -6);
 
+            GoodDay(16);
+
             Console.ReadKey();
         }
         static void BasicOperation(int a, int b, char operateur)
@@ -110,6 +112,42 @@ namespace Formation
 
             }
         }
+        static void GoodDay(int heure)
+        {
+     
+
+            if (00 <= heure && heure < 06)
+            {
+
+                Console.WriteLine(" Il est " + heure + ' ' + 'H' + ',' + " Merveilleuse Nuit!");
+
+            }
+
+            else if (06 <= heure && heure < 12)
+            {
+
+                Console.WriteLine(" Il est " + heure + ' ' + 'H' + ',' + " Bonne Matinée!");
+
+            }
+
+            else if ( heure == 12 )
+            {
+
+                Console.WriteLine(" Il est " + heure + ' ' + 'H' + ',' + " Bon midi!");
+            }
+
+            else if (13 < heure && heure < 18)
+            {
+                Console.WriteLine(" Il est " + heure + ' ' + 'H' + ',' + " Profitez de votre après-midi!");
+            }
+
+            else if (heure >= 18)
+            {
+                Console.WriteLine(" Il est " + heure + ' ' + 'H' + ',' + " Passez une bonne soirée!");
+            }
+
+        }
+          
     }
     
 } 
