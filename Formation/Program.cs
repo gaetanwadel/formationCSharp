@@ -30,6 +30,9 @@ namespace Formation
             Console.WriteLine();
             Console.WriteLine(Factorialr(10));
 
+            int[]tableau = new int[]{ 1, -5, 10, 3, 0, 4, 2, -7 };
+            Console.WriteLine(LinearSearch(tableau, 4));
+      
 
 
 
@@ -220,10 +223,62 @@ namespace Formation
             return Factorialr(n - 1) * n;
 
         }
+        static int LinearSearch(int[] tableau, int valeur)
+        {
+            for (int i = 0; i < tableau.Length; i++)
+            {
+                if (tableau[i] == valeur)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+        static int BinarySearch(int[] tableau, int valeur)
+        {
+            
+
+           // for (int i = 0; i < tableau.Length; i++)
+
+            {int m = tableau.Length / 2;
+                int bg = 0;
+                int bd = tableau.Length;
+
+                
+                While (m == valeur)
+                {
+                    return i;
+                }
+                if (m<valeur)
+                {
+                    bg = m;
+                    bd = tableau.Length - bg;
+                    m = tableau.Length / 2;
+
+                }
+
+                if (m>valeur)
+                {
+                    bd = m;
+                    m = tableau.Length / 2;
+
+
+
+                }
+
+
+
+               
+            Bd
+           if valeur > bd
+                bd = M
+
+
+            //}
+
+        }
+
 
 
     }
-         
-
-
-}
