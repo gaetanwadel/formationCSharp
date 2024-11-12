@@ -30,9 +30,12 @@ namespace Formation
             Console.WriteLine();
             Console.WriteLine(Factorialr(10));
 
-            int[]tableau = new int[]{ 1, -5, 10, 3, 0, 4, 2, -7 };
+            int[] tableau = new int[] { 1, -5, 10, 3, 0, 4, 2, -7 };
+            int[] tableau2 = new int[] { 1, 3, 5, 9, 16, 18, 20 };
             Console.WriteLine(LinearSearch(tableau, 4));
-      
+            Console.WriteLine(BinarySearch(tableau2, 9));
+
+
 
 
 
@@ -209,7 +212,7 @@ namespace Formation
             {
                 j = (j * i);
 
-                
+
             }
             Console.Write(j + " ");
         }
@@ -237,48 +240,43 @@ namespace Formation
         }
         static int BinarySearch(int[] tableau, int valeur)
         {
-            
-
-           // for (int i = 0; i < tableau.Length; i++)
-
-            {int m = tableau.Length / 2;
-                int bg = 0;
-                int bd = tableau.Length;
-
-                
-                While (m == valeur)
+            int m = tableau.Length / 2;
+            int bg = 0;
+            int bd = tableau.Length;
+          //  for (int i = 0; i < tableau.Length; i++)
+          //  
+           
+                while (bg<bd)
+            {       
+                    if (tableau[m] == valeur)
+                   
                 {
-                    return i;
+                    return m;
                 }
-                if (m<valeur)
+
+                else if (tableau[m] < valeur)
                 {
                     bg = m;
-                    bd = tableau.Length - bg;
-                    m = tableau.Length / 2;
-
+                    m = (bd - bg) / 2;               
                 }
-
-                if (m>valeur)
+                else if (tableau[m] > valeur)
                 {
                     bd = m;
-                    m = tableau.Length / 2;
-
-
-
+                    m = (bd - bg) / 2;         
                 }
-
-
-
-               
-            Bd
-           if valeur > bd
-                bd = M
-
-
-            //}
-
+            }
+            return -1;
         }
+        static int[][] BuildingMatrix(int[]leftVector, int[]rightVector)
+        {
 
+           //int[] a = new int[] { a1, a2, a3 };
+           // int[] b = new int[] { b1, b2, b3 };
+           INT
 
-
+        }    
+        
     }
+}
+
+    
