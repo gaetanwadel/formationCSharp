@@ -35,12 +35,57 @@ namespace Formation
             Console.WriteLine(LinearSearch(tableau, 4));
             Console.WriteLine(BinarySearch(tableau2, 9));
 
+            int[] a = new int[] { 1, 2, 3 };
+            int[] b = new int[] { -1, -4, 0 };
 
 
+            Console.WriteLine(BuildingMatrix(a, b));
+            DisplayMatrix(BuildingMatrix(a, b));
 
+            int[][] A = new int[][]
+            {
+                new int[] { 1, 2 },
+                new int[] { 4, 6 },
+                new int[] { -1, 8 }
+
+            };
+
+            int[][] B = new int[][]
+            {
+                new int[] { -1,5 },
+                new int[] {-4,0 },
+                new int[] {0,2 }
+
+            };
+
+            Console.WriteLine(Addition(A, B));
+            DisplayMatric(Addition(A, B));
+
+
+            int[][] c = new int[][]
+           {
+                new int[] { 1, 2 },
+                new int[] { 4, 6 },
+                new int[] { -1, 8 }
+
+            };
+
+            int[][] d = new int[][]
+            {
+                new int[] { -1,5 ,0},
+                new int[] {-4,0,1 }
+  
+            };
+
+            Console.WriteLine(Multiplication(c, d));
+            DisplayMultiplication(Multiplication(c, d));
 
 
             Console.ReadKey();
+
+            
+
+
         }
         static void BasicOperation(int a, int b, char operateur)
         {
@@ -243,13 +288,13 @@ namespace Formation
             int m = tableau.Length / 2;
             int bg = 0;
             int bd = tableau.Length;
-          //  for (int i = 0; i < tableau.Length; i++)
-          //  
-           
-                while (bg<bd)
-            {       
-                    if (tableau[m] == valeur)
-                   
+            //  for (int i = 0; i < tableau.Length; i++)
+            //  
+
+            while (bg < bd)
+            {
+                if (tableau[m] == valeur)
+
                 {
                     return m;
                 }
@@ -257,26 +302,134 @@ namespace Formation
                 else if (tableau[m] < valeur)
                 {
                     bg = m;
-                    m = (bd - bg) / 2;               
+                    m = (bd - bg) / 2;
                 }
                 else if (tableau[m] > valeur)
                 {
                     bd = m;
-                    m = (bd - bg) / 2;         
+                    m = (bd - bg) / 2;
                 }
             }
             return -1;
         }
-        static int[][] BuildingMatrix(int[]leftVector, int[]rightVector)
+        static int[][] BuildingMatrix(int[] leftVector, int[] rightVector)
         {
 
-           //int[] a = new int[] { a1, a2, a3 };
-           // int[] b = new int[] { b1, b2, b3 };
-           INT
+            //int[] a = new int[] { 0, 1, 2 };
+            //int[] b = new int[] { 0, 1, 2 };
 
-        }    
-        
+            int[] a = leftVector;
+            int[] b = rightVector;
+            int[][] matrix = new int[a.Length][];
+
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                matrix[i] = new int[b.Length];
+
+                for (int j = 0; j < b.Length; j++)
+
+                {
+                    matrix[i][j] = a[i] * b[j];
+                }
+            }
+            return matrix;
+        }
+        static void DisplayMatrix(int[][] Matrix)
+        {
+            int a = Matrix.Length;
+            int b = Matrix[0].Length;
+
+            for (int i = 0; i < a; i++)
+            {
+                for (int j = 0; j < b; j++)
+
+                {
+                    Console.Write((Matrix[i][j]) + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+        static int[][] Addition(int[][] leftMatrix, int[][] rightMatrix)
+        {
+            int[][] a = leftMatrix;
+            int[][] b = rightMatrix;
+            int[][] matric = new int[a.Length][];
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                matric[i] = new int[b[i].Length];
+
+                for (int j = 0; j < b[i].Length; j++)
+
+                {
+                    matric[i][j] = a[i][j] + b[i][j];
+                }
+            }
+            return matric;
+        }
+
+        static void DisplayMatric(int[][] Matric)
+        {
+            int a = Matric.Length;
+            int b = Matric[0].Length;
+
+            for (int i = 0; i < a; i++)
+            {
+                for (int j = 0; j < b; j++)
+
+                {
+                    Console.Write((Matric[i][j]) + " ");
+                }
+                Console.WriteLine();
+            }
+
+        }
+        static int[][] Multiplication(int[][] leftMatrix, int[][] rightMatrix)
+        { 
+            int[][] c = leftMatrix;
+            int[][] d = rightMatrix;
+            int[][] M = new int[c.Length][];
+
+            for (int i = 0; i < c.Length; i++)
+            {
+                M[i] = new int[d[0].Length];
+
+                for (int j = 0; j < d[0].Length; j++)
+                {
+                    for (int k = 0; k < c[0].Length; k++)
+                    {
+                        M[i][j] += c[i][k] * d[k][j];
+                    }
+                }              
+            }
+            return M;
+        }
+        static void DisplayMultiplication(int[][] M)
+        {
+            int c = M.Length;
+            int d = M[0].Length;
+
+            for (int i = 0; i < c; i++)
+            {
+                for (int j = 0; j < d; j++)
+
+                {
+                    for (int k = 0; k<d; k++)
+                    {
+                     
+                    }
+                   Console.Write((M[i][j]) + " ");
+                }
+                Console.WriteLine();
+            }
+
+        }
+
     }
 }
 
-    
+                
+  
+            
+            
