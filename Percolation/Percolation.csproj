@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{67612D79-0611-409D-BEC0-45D67A5A2341}</ProjectGuid>
+    <ProjectGuid>{E7C1D140-02B0-4C99-8791-19E10DDA21E5}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Formation</RootNamespace>
-    <AssemblyName>Formation</AssemblyName>
+    <RootNamespace>Percolation</RootNamespace>
+    <AssemblyName>Percolation</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,12 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Percolation.cs" />
+    <Compile Include="PercolationSimulation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="readme.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

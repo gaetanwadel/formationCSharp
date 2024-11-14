@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -425,6 +426,38 @@ namespace Formation
             }
 
         }
+        static void SchoolMeans(string input, string output)
+        {
+            
+           
+           Dictionary<string,int> Dnbr = new Dictionary<string, int>();
+
+            Dictionary<string, double> dsom = new Dictionary<string, double>();
+
+            using (FileStream fs1 = File.OpenRead("readme.csv"))
+
+            using (StreamReader fichier1 = new StreamReader(fs1))
+            {
+                while (!fichier1.EndOfStream)
+                { fichier1.ReadLine().split(';')
+                        string[] ligne = ["Marc","Histoire",""]
+                }
+            }
+
+            using (FileStream fs2 = File.Create("writeme.csv"))
+
+            using (StreamWriter fichier2 = new StreamWriter(fs2))
+            {
+                writer.Writeline("");
+
+
+            }
+           
+            foreach (KeyValyePair<string,double> mat in D)
+                    }
+        }
+     
+
 
     }
 }
