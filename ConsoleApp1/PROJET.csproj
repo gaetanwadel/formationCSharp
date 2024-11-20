@@ -43,12 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banque.cs" />
+    <Compile Include="CompteBancaire.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Statuts Transaction.csv" />
+    <None Include="Statuts-Transaction.csv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NewFolder1\" />
