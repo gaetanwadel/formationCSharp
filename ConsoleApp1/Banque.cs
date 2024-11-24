@@ -17,7 +17,7 @@ namespace ConsoleApp1
         public void LectureFichierCompte()
         {
        
-            using (FileStream fs1 = File.OpenRead(@"C:\Users\Formation\Documents\Entrée\Compte.csv"))
+            using (FileStream fs1 = File.OpenRead(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Comptes_1.txt"))
             using (StreamReader fichier1 = new StreamReader(fs1))
             {
                 while (!fichier1.EndOfStream)
@@ -41,16 +41,24 @@ namespace ConsoleApp1
             {
                 return;
             }
-            int SLD = int.Parse(solde);
+
+            int SLD;
+            if (!int.TryParse(solde, out SLD))
+            {
+                return;
+            }
 
             CompteBancaire compte = new CompteBancaire(SLD, ID);
-            _Comptes.Add(ID, compte);
+            if (_Comptes.ContainsKey(ID))
+            {
+                _Comptes.Add(ID, compte);
+            }
         }
 
         public void LectureFichierTransaction()
         {
 
-            using (FileStream fs2 = File.OpenRead(@"C:\Users\Formation\Documents\Entrée\Transaction.csv"))
+            using (FileStream fs2 = File.OpenRead(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Transactions_1.txt"))
             using (StreamReader fichier2 = new StreamReader(fs2))
             {
                 while (!fichier2.EndOfStream)
@@ -90,7 +98,10 @@ namespace ConsoleApp1
                 return;
             }
             Transaction transaction = new Transaction(IDE, MTNT, EXP, DEST);
-            _Transactions.Add(IDE, transaction);
+            if (!_Transactions.ContainsKey(IDE))
+            {
+                _Transactions.Add(IDE, transaction);
+            }
         }
       
         public void GestionTransaction()
@@ -98,17 +109,24 @@ namespace ConsoleApp1
             foreach (var transaction in _Transactions)
             {
                 bool istransactionok;
-                if (transaction.Value.Expediteur == 0)
+                if (transaction.Value.Expediteur == 0 && _Comptes.ContainsKey(transaction.Value.Destinataire))
                 {
                     istransactionok = Depot(transaction.Value, _Comptes[transaction.Value.Destinataire]);
                 }
-                else if (transaction.Value.Destinataire == 0)
+                else if (transaction.Value.Destinataire == 0 && _Comptes.ContainsKey(transaction.Value.Expediteur))
                 {
                     istransactionok = Retrait(transaction.Value, _Comptes[transaction.Value.Expediteur]);
                 }
                 else
                 {
-                    istransactionok = Virement(transaction.Value, _Comptes[transaction.Value.Destinataire], _Comptes[transaction.Value.Expediteur]);
+                    if (_Comptes.ContainsKey(transaction.Value.Destinataire) && _Comptes.ContainsKey(transaction.Value.Expediteur))
+                    {
+                        istransactionok = Virement(transaction.Value, _Comptes[transaction.Value.Destinataire], _Comptes[transaction.Value.Expediteur]);
+                    }
+                    else
+                    {
+                        istransactionok = false;
+                    }
                 }
 
                 _StatutsTransaction.Add(transaction.Key, istransactionok);
@@ -158,7 +176,7 @@ namespace ConsoleApp1
         public void EcritureFichierCompte()
 
         {
-            using (FileStream fs3 = File.Create(@"C:\Users\Formation\Documents\Sortie\Statuts-Transaction.csv"))
+            using (FileStream fs3 = File.Create(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Statuts_1_WGA.txt"))
 
             using (StreamWriter fichier3 = new StreamWriter(fs3))
             {
