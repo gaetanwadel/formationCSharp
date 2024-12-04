@@ -14,13 +14,13 @@ namespace ConsoleApp1
         public int Identifiant;
         public List<Transaction> Historique { get; set; }
 
-        public CompteBancaire(int solde, int identifiant)
+        public CompteBancaire(decimal solde, int identifiant)
         {
             Identifiant = identifiant;
             Solde = solde;
             Historique = new List<Transaction>();
         }
-
+       
         public void AjouterArgent(Transaction transaction)
         {
             Solde += transaction.Montant;
@@ -30,9 +30,14 @@ namespace ConsoleApp1
         // Méthode retrait
         public void RetirerArgent(Transaction transaction)
         {
+            
             Solde -= transaction.Montant;
-            AjoutHistoric(transaction);
+            
+	        
+          
         }
+       
+
         public void AjoutHistoric(Transaction transaction)
         {
             if (Historique.Count() <= 9)
@@ -59,7 +64,6 @@ namespace ConsoleApp1
         }
 
     }
-
 }
 
 

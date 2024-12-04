@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace ConsoleApp1
 {
@@ -17,16 +18,13 @@ namespace ConsoleApp1
         public void LectureFichierCompte()
         {
        
-            using (FileStream fs1 = File.OpenRead(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Comptes_1.txt"))
+            using (FileStream fs1 = File.OpenRead(@"C:\Users\Formation\Partiei\Comptes_1.txt"))
             using (StreamReader fichier1 = new StreamReader(fs1))
             {
                 while (!fichier1.EndOfStream)
                 {
                     string[] infocompte = fichier1.ReadLine().Split(';');
-                    if (infocompte.Length != 2)
-                    {
-                        continue;
-                    }
+                    
                     CreationDictionaireCompte(infocompte);
                 }
             }
@@ -36,29 +34,46 @@ namespace ConsoleApp1
             string identifiant = infocompte[0];
             string solde = infocompte[1];
 
-            int ID; //= int.Parse(identifiant);
-            if (!int.TryParse(identifiant, out ID))
-            {
-                return;
-            }
+    
+         // int SLD;
+         //  if (!int.TryParse(solde, out SLD))
+         //   {
+          //      return;
+          //  }
+        
 
-            int SLD;
-            if (!int.TryParse(solde, out SLD))
-            {
-                return;
-            }
+        
+          
+              int ID; //= int.Parse(identifiant);
+              decimal SLD;
 
-            CompteBancaire compte = new CompteBancaire(SLD, ID);
-            if (_Comptes.ContainsKey(ID))
-            {
-                _Comptes.Add(ID, compte);
+            if (infocompte.Length == 2 && int.TryParse(identifiant, out ID) && ID!=0)
+
+            {   
+                if (!decimal.TryParse(solde,NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign,CultureInfo.GetCultureInfo("en-US"), out SLD) || infocompte[1] == string.Empty )         
+                   
+                     if (infocompte[1]==string.Empty)
+                     {
+                        SLD = 0;
+                     }
+                     
+                   
+               
+                    
+                     if (!_Comptes.ContainsKey(ID))
+                    {
+                             CompteBancaire compte = new CompteBancaire(SLD, ID);
+                             _Comptes.Add(ID, compte);
+                    }
+                    
+              
+              
             }
+       
         }
-
         public void LectureFichierTransaction()
         {
-
-            using (FileStream fs2 = File.OpenRead(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Transactions_1.txt"))
+            using (FileStream fs2 = File.OpenRead(@"C:\Users\Formation\Partiei\Transactions_1.txt"))
             using (StreamReader fichier2 = new StreamReader(fs2))
             {
                 while (!fichier2.EndOfStream)
@@ -86,7 +101,12 @@ namespace ConsoleApp1
                 return;
             }
 
-            int MTNT = int.Parse(montant);
+                
+            decimal MTNT;
+            if (!decimal.TryParse(montant, out MTNT) && MTNT < 0)
+                {
+                return;
+                }
             int EXP; 
             if (!int.TryParse(expediteur, out EXP))
             {
@@ -113,7 +133,7 @@ namespace ConsoleApp1
                 {
                     istransactionok = Depot(transaction.Value, _Comptes[transaction.Value.Destinataire]);
                 }
-                else if (transaction.Value.Destinataire == 0 && _Comptes.ContainsKey(transaction.Value.Expediteur))
+                else if (transaction.Value.Destinataire == 0 && _Comptes.ContainsKey(transaction.Value.Expediteur ))
                 {
                     istransactionok = Retrait(transaction.Value, _Comptes[transaction.Value.Expediteur]);
                 }
@@ -132,6 +152,8 @@ namespace ConsoleApp1
                 _StatutsTransaction.Add(transaction.Key, istransactionok);
             }
         }
+       
+
         public bool Depot(Transaction transaction, CompteBancaire destinataire)
         {
             if (transaction.Montant > 0)
@@ -176,7 +198,7 @@ namespace ConsoleApp1
         public void EcritureFichierCompte()
 
         {
-            using (FileStream fs3 = File.Create(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Statuts_1_WGA.txt"))
+            using (FileStream fs3 = File.Create(@"C:\Users\Formation\Partiei\Statuts_1_WGA.txt"))
 
             using (StreamWriter fichier3 = new StreamWriter(fs3))
             {

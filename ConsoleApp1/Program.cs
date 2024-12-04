@@ -17,7 +17,7 @@ namespace ConsoleApp1
             banque.LectureFichierTransaction();
             banque.GestionTransaction();
             banque.EcritureFichierCompte();
-
+  
 
 
 
