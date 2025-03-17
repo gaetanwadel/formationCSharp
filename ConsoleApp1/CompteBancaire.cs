@@ -14,6 +14,7 @@ namespace ConsoleApp1
         public int Identifiant;
         public List<Transaction> Historique { get; set; }
 
+
         public CompteBancaire(decimal solde, int identifiant)
         {
             Identifiant = identifiant;

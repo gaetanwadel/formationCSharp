@@ -12,6 +12,7 @@ namespace ConsoleApp1
         public decimal Montant;
         public int Expediteur;
         public int Destinataire;
+
         public Transaction(int identifiant, decimal montant, int expediteur, int destinataire)
         {
             Identifiant = identifiant;

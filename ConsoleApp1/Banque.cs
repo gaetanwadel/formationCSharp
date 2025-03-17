@@ -11,11 +11,22 @@ namespace ConsoleApp1
     public class Banque
     {
         private Dictionary<int, CompteBancaire> _Comptes = new Dictionary<int, CompteBancaire>();
+        //_Comptes = 
+        // _Comptes.key = int
+        // _Comptes.value : comptebancaire
+            //solde
+            //identifiaant
+            //historique =  liste de transactions
+                // identifiant
+                // montant
+                // compte expéditeur
+                //compte destinataire
+
         private Dictionary<int, Transaction> _Transactions = new Dictionary<int, Transaction>();
         private Dictionary<int, bool> _StatutsTransaction = new Dictionary<int, bool>();
 
 
-        public void LectureFichierCompte()
+       public void LectureFichierCompte()
         {
        
             using (FileStream fs1 = File.OpenRead(@"C:\Users\Formation\Partiei\Comptes_1.txt"))
@@ -23,7 +34,7 @@ namespace ConsoleApp1
             {
                 while (!fichier1.EndOfStream)
                 {
-                    string[] infocompte = fichier1.ReadLine().Split(';');
+                     string[] infocompte = fichier1.ReadLine().Split(';');
                     
                     CreationDictionaireCompte(infocompte);
                 }
@@ -40,10 +51,7 @@ namespace ConsoleApp1
          //   {
           //      return;
           //  }
-        
-
-        
-          
+              
               int ID; //= int.Parse(identifiant);
               decimal SLD;
 
@@ -56,20 +64,13 @@ namespace ConsoleApp1
                      {
                         SLD = 0;
                      }
-                     
                    
-               
-                    
                      if (!_Comptes.ContainsKey(ID))
                     {
                              CompteBancaire compte = new CompteBancaire(SLD, ID);
                              _Comptes.Add(ID, compte);
                     }
-                    
-              
-              
             }
-       
         }
         public void LectureFichierTransaction()
         {

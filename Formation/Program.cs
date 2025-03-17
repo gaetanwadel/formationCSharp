@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Formation
 {
@@ -11,80 +16,84 @@ namespace Formation
     {
         static void Main()
         {
-            BasicOperation(3, 4, '+');
-            BasicOperation(6, 2, '/');
-            BasicOperation(3, 0, '/');
-            BasicOperation(6, 9, 'L');
+            // BasicOperation(3, 4, '+');
+            // BasicOperation(6, 2, '/');
+            // BasicOperation(3, 0, '/');
+            // BasicOperation(6, 9, 'L');
 
-            IntegerDivision(12, 4);
-            IntegerDivision(13, 4);
-            IntegerDivision(12, 0);
+            // IntegerDivision(12, 4);
+            // IntegerDivision(13, 4);
+            // IntegerDivision(12, 0);
 
-            Pow(2, 3);
-            Pow(5, -6);
+            // Pow(2, 3);
+            // Pow(5, -6);
 
-            GoodDay(16);
+            // GoodDay(16);
 
-            PyramidConstruction(5, false);
+            // PyramidConstruction(5, false);
 
-            Factorial(10);
-            Console.WriteLine();
-            Console.WriteLine(Factorialr(10));
+            // Factorial(10);
+            // Console.WriteLine();
+            // Console.WriteLine(Factorialr(10));
 
-            int[] tableau = new int[] { 1, -5, 10, 3, 0, 4, 2, -7 };
-            int[] tableau2 = new int[] { 1, 3, 5, 9, 16, 18, 20 };
-            Console.WriteLine(LinearSearch(tableau, 4));
-            Console.WriteLine(BinarySearch(tableau2, 9));
+            // int[] tableau = new int[] { 1, -5, 10, 3, 0, 4, 2, -7 };
+            // int[] tableau2 = new int[] { 1, 3, 5, 9, 16, 18, 20 };
+            // Console.WriteLine(LinearSearch(tableau, 4));
+            // Console.WriteLine(BinarySearch(tableau2, 9));
 
-            int[] a = new int[] { 1, 2, 3 };
-            int[] b = new int[] { -1, -4, 0 };
-
-
-            Console.WriteLine(BuildingMatrix(a, b));
-            DisplayMatrix(BuildingMatrix(a, b));
-
-            int[][] A = new int[][]
-            {
-                new int[] { 1, 2 },
-                new int[] { 4, 6 },
-                new int[] { -1, 8 }
-
-            };
-
-            int[][] B = new int[][]
-            {
-                new int[] { -1,5 },
-                new int[] {-4,0 },
-                new int[] {0,2 }
-
-            };
-
-            Console.WriteLine(Addition(A, B));
-            DisplayMatric(Addition(A, B));
+            // int[] a = new int[] { 1, 2, 3 };
+            // int[] b = new int[] { -1, -4, 0 };
 
 
-            int[][] c = new int[][]
-           {
-                new int[] { 1, 2 },
-                new int[] { 4, 6 },
-                new int[] { -1, 8 }
+            // Console.WriteLine(BuildingMatrix(a, b));
+            // DisplayMatrix(BuildingMatrix(a, b));
 
-            };
+            // int[][] A = new int[][]
+            // {
+            //     new int[] { 1, 2 },
+            //     new int[] { 4, 6 },
+            //     new int[] { -1, 8 }
 
-            int[][] d = new int[][]
-            {
-                new int[] { -1,5 ,0},
-                new int[] {-4,0,1 }
-  
-            };
+            // };
 
-            Console.WriteLine(Multiplication(c, d));
-            DisplayMultiplication(Multiplication(c, d));
+            // int[][] B = new int[][]
+            // {
+            //     new int[] { -1,5 },
+            //     new int[] {-4,0 },
+            //     new int[] {0,2 }
+
+            // };
+
+            // Console.WriteLine(Addition(A, B));
+            // DisplayMatric(Addition(A, B));
 
 
+            // int[][] c = new int[][]
+            //{
+            //     new int[] { 1, 2 },
+            //     new int[] { 4, 6 },
+            //     new int[] { -1, 8 }
+
+            // };
+
+            // int[][] d = new int[][]
+            // {
+            //     new int[] { -1,5 ,0},
+            //     new int[] {-4,0,1 }
+
+            // };
+
+            // Console.WriteLine(Multiplication(c, d));
+            // DisplayMultiplication(Multiplication(c, d));
+
+            string input = @"C:\Users\Formation\Source\Repos\gaetanwadel\formationCSharp\Formation\readme.csv";
+            string output = @"C:\Users\Formation\Source\Repos\gaetanwadel\formationCSharp\Formation\writeme.csv";
+
+            SchoolMeans(input, output);
+            Console.WriteLine("Appuyer sur Entrée pour fermer la console");
             Console.ReadKey();
 
-            
+
 
 
         }
@@ -387,7 +396,7 @@ namespace Formation
 
         }
         static int[][] Multiplication(int[][] leftMatrix, int[][] rightMatrix)
-        { 
+        {
             int[][] c = leftMatrix;
             int[][] d = rightMatrix;
             int[][] M = new int[c.Length][];
@@ -402,7 +411,7 @@ namespace Formation
                     {
                         M[i][j] += c[i][k] * d[k][j];
                     }
-                }              
+                }
             }
             return M;
         }
@@ -414,55 +423,320 @@ namespace Formation
             for (int i = 0; i < c; i++)
             {
                 for (int j = 0; j < d; j++)
-
                 {
-                    for (int k = 0; k<d; k++)
+                    for (int k = 0; k < d; k++)
                     {
-                     
+
                     }
-                   Console.Write((M[i][j]) + " ");
+                    Console.Write((M[i][j]) + " ");
                 }
                 Console.WriteLine();
             }
-
         }
         static void SchoolMeans(string input, string output)
         {
-            
-           
-           Dictionary<string,int> Dnbr = new Dictionary<string, int>();
+            //liste de notes d'histoire
+            List<double> histoire = new List<double>();
+            //liste de notes de math
+            List<double> math = new List<double>();
+            //liste de notes de SVT
+            List<double> SVT = new List<double>();
 
-            Dictionary<string, double> dsom = new Dictionary<string, double>();
+            Dictionary<string, List<double>> dicoNotes = new Dictionary<string, List<double>>();
 
-            using (FileStream fs1 = File.OpenRead("readme.csv"))
+            using (FileStream fs1 = File.OpenRead(input))
 
             using (StreamReader fichier1 = new StreamReader(fs1))
             {
                 while (!fichier1.EndOfStream)
-                { fichier1.ReadLine().split(';')
-                        string[] ligne = ["Marc","Histoire",""]
+                {
+                    string[] ligne1 = fichier1.ReadLine().Split(';');
+                    ligne1[1] = ligne1[1].Trim();
+                    if (!dicoNotes.ContainsKey(ligne1[1]))
+                    {
+                        dicoNotes.Add(ligne1[1], new List<double>());
+                    }
+                    dicoNotes[ligne1[1]].Add(Convert.ToDouble(ligne1[2]));
                 }
             }
 
-            using (FileStream fs2 = File.Create("writeme.csv"))
+            Dictionary<string, double> dicoMoyennes = new Dictionary<string, double>();
+            double noteSomme = 0;
+            double moyenne = 0;
+            foreach ( var Matiere in dicoNotes)
+
+            {
+                foreach(var note in Matiere.Value)
+                {
+
+                    noteSomme += note;
+                }
+                //moyenne
+                moyenne = noteSomme / Matiere.Value.Count;
+                dicoMoyennes.Add(Matiere.Key, moyenne);
+                noteSomme = 0;
+            }
+                    
+            {
+           
+            }
+
+            //moyenneh = noteSomme / histoire.Count;
+           // dicoMoyennes.Add("Histoire", moyenneh);
+
+
+
+            //
+            // using (StreamReader fichier1 = new StreamReader(fs1))
+
+            // diconotes = 1 - histoire = key --> value : liste de notes
+            //
+            //boucle diconotes = key =  key dico moyennes
+          //  Dictionary<string, double> dicoMoyennes = new Dictionary<string, double>();
+
+
+            
+
+            //string matiere = string.Empty;
+            ////double noteSomme = 0;
+            //double moyennem = 0;
+            //double moyenneh = 0;
+            //double moyenneS = 0;
+            //bool listemath = false;
+            //bool listhistoire = false;
+            //using (FileStream fs1 = File.OpenRead(input))
+
+            ////traitement histoire
+            //noteSomme = 0;
+            //foreach (double noteMoyenne in histoire)
+            //{
+            //    noteSomme += noteMoyenne;
+            //}
+            //moyenneh = noteSomme / histoire.Count;
+            //dicoMoyennes.Add("Histoire", moyenneh);
+            
+            //// 
+
+            ////traitement math
+            //noteSomme = 0;
+            //foreach (double noteMoyenne in math)
+            //{
+            //    noteSomme += noteMoyenne;
+            //}
+            //moyennem = noteSomme / math.Count;
+            //dicoMoyennes.Add("Math", moyennem);
+            ////traitement SVT
+            //noteSomme = 0;
+            //foreach (double noteMoyenne in SVT)
+            //{
+            //    noteSomme += noteMoyenne;
+            //}
+            //moyenneS = noteSomme / SVT.Count;
+            //dicoMoyennes.Add("SVT", moyenneS);
+
+            //ecriture fichier
+            using (FileStream fs2 = File.Create(output))
+
 
             using (StreamWriter fichier2 = new StreamWriter(fs2))
-            {
-                writer.Writeline("");
+            { 
+                    //fichier2.WriteLine(" Histoire ;" + moyenneh);
+              
+             
+                    //fichier2.WriteLine(" Math ;" + moyennem);
 
+                    //fichier2.WriteLine(" SVT ;" + moyenneS);
 
+                foreach (var matiereMoyenne in dicoMoyennes)
+                {
+                    fichier2.WriteLine($" {matiereMoyenne.Key} : {matiereMoyenne.Value}");
+                    //fichier2.WriteLine(" ygfeuozhgoizh " + matiereMoyenne.Key + " : " + matiereMoyenne.Value);
+                    //fichier2.WriteLine(string.Format("ueizghuozeghuiohg {0} : {1}", matiereMoyenne.Key, matiereMoyenne.Value));
+                }
             }
-           
-            foreach (KeyValyePair<string,double> mat in D)
-                    }
         }
-     
-
 
     }
 }
+//public void CreationDictionaireCompte(string[] infocompte)
+//{
+//    string identifiant = infocompte[0];
+//    string solde = infocompte[1];
 
-                
+
+//    // int SLD;
+//    //  if (!int.TryParse(solde, out SLD))
+//    //   {
+//    //      return;
+//    //  }
+
+//    int ID; //= int.Parse(identifiant);
+//    decimal SLD;
+
+//    if (infocompte.Length == 2 && int.TryParse(identifiant, out ID) && ID != 0)
+
+//    {
+//        if (!decimal.TryParse(solde, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.GetCultureInfo("en-US"), out SLD) || infocompte[1] == string.Empty)
+
+//            if (infocompte[1] == string.Empty)
+//            {
+//                SLD = 0;
+//            }
+
+//        if (!_Comptes.ContainsKey(ID))
+//        {
+//            CompteBancaire compte = new CompteBancaire(SLD, ID);
+//            _Comptes.Add(ID, compte);
+//        }
+//    }
+//}
+//public void LectureFichierTransaction()
+//{
+//    using (FileStream fs2 = File.OpenRead(@"C:\Users\Formation\Partiei\Transactions_1.txt"))
+//    using (StreamReader fichier2 = new StreamReader(fs2))
+//    {
+//        while (!fichier2.EndOfStream)
+//        {
+//            string[] infotransa = fichier2.ReadLine().Split(';');
+//            if (infotransa.Length != 4)
+//            {
+//                continue;
+//            }
+//            CreationDictionnaireTransaction(infotransa);
+//        }
+//    }
+//}
+//public void CreationDictionnaireTransaction(string[] infotransa)
+//{
+//    string ident = infotransa[0];
+//    string montant = infotransa[1];
+//    string expediteur = infotransa[2];
+//    string destinataire = infotransa[3];
+
+//    int IDE; // = int.Parse(ident);
+
+//    if (!int.TryParse(ident, out IDE))
+//    {
+//        if (!decimal.TryParse(montant, out MTNT) && MTNT < 0)
+//        {
+//            return;
+//        }
+//        int EXP;
+//        if (!int.TryParse(expediteur, out EXP))
+//        {
+//            return;
+//        }
+//        int DEST = int.Parse(destinataire);
+//        if (!int.TryParse(destinataire, out DEST))
+//        {
+//            return;
+//        }
+//        Transaction transaction = new Transaction(IDE, MTNT, EXP, DEST);
+//        if (!_Transactions.ContainsKey(IDE))
+//        {
+//            _Transactions.Add(IDE, transaction);
+//        }
+//    }
+
+//    public void GestionTransaction()
+//    {
+//        foreach (var transaction in _Transactions)
+//        {
+//            bool istransactionok;
+//            if (transaction.Value.Expediteur == 0 && _Comptes.ContainsKey(transaction.Value.Destinataire))
+//            {
+//                istransactionok = Depot(transaction.Value, _Comptes[transaction.Value.Destinataire]);
+//            }
+//            else if (transaction.Value.Destinataire == 0 && _Comptes.ContainsKey(transaction.Value.Expediteur))
+//            {
+//                istransactionok = Retrait(transaction.Value, _Comptes[transaction.Value.Expediteur]);
+//            }
+//            else
+//            {
+//                if (_Comptes.ContainsKey(transaction.Value.Destinataire) && _Comptes.ContainsKey(transaction.Value.Expediteur))
+//                {
+//                    istransactionok = Virement(transaction.Value, _Comptes[transaction.Value.Destinataire], _Comptes[transaction.Value.Expediteur]);
+//                }
+//                else
+//                {
+//                    istransactionok = false;
+//                }
+//            }
+
+//            _StatutsTransaction.Add(transaction.Key, istransactionok);
+//        }
+//    }
+
+
+//    public bool Depot(Transaction transaction, CompteBancaire destinataire)
+//    {
+//        if (transaction.Montant > 0)
+
+//        {
+//            destinataire.AjouterArgent(transaction);
+//            return true;
+//        }
+//        else
+//        {
+//            return false;
+//        }
+//    }
+
+//    public bool Retrait(Transaction transaction, CompteBancaire expediteur)
+//    {
+//        if (transaction.Montant > 0 && expediteur.Solde >= transaction.Montant && expediteur.SommeTransaction(transaction.Montant) < 1000)
+//        {
+//            expediteur.RetirerArgent(transaction);
+//            return true;
+//        }
+//        else
+//        {
+//            return false;
+//        }
+//    }
+//    public bool Virement(Transaction transaction, CompteBancaire destinataire, CompteBancaire expediteur)
+//    {
+//        if (transaction.Montant > 0 && expediteur.Solde >= transaction.Montant && expediteur.SommeTransaction(transaction.Montant) < 1000)
+//        {
+//            expediteur.RetirerArgent(transaction);
+//            destinataire.AjouterArgent(transaction);
+//            return true;
+//        }
+//        else
+//        {
+//            return false;
+//        }
+
+//    }
+
+//    public void EcritureFichierCompte()
+
+//    {
+//        using (FileStream fs3 = File.Create(@"C:\Users\Formation\Partiei\Statuts_1_WGA.txt"))
+
+//        using (StreamWriter fichier3 = new StreamWriter(fs3))
+//        {
+//            foreach (var statut in _StatutsTransaction)
+//            {
+//                if (statut.Value)
+//                {
+//                    fichier3.WriteLine($"{statut.Key};OK");
+//                }
+//                else
+//                {
+//                    fichier3.WriteLine($"{statut.Key};KO");
+//                }
+//            }
+//        }
+
+//    }
+//}
+
+
+
+        
+ 
+           
   
             
             
